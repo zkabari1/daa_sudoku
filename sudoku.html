@@ -85,7 +85,6 @@
 							function notincluded(value){
 								return (!rowi.includes(value) && !colj.includes(value) && !square.includes(value));
 							}
-							//console.log(row1[k]);
 							
 							tbl.rows[i].cells[j].innerHTML=Array.from('1234').filter(notincluded);
 							if(Array.from('1234').filter(notincluded).length === 1){

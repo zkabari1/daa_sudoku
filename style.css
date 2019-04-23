@@ -1,0 +1,65 @@
+.split {
+  height: 100%;
+  position: fixed;
+  z-index: 1;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+/* Control the left side */
+.left {
+  left: 0;
+  width: 40%;
+  background-color: #D5F5E3;
+}
+
+/* Control the right side */
+.right {
+  right: 0;
+  width:60%;
+  background-color: #FEF9E7;
+}
+
+/* If you want the content centered horizontally and vertically */
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.text{
+	margin-left:10%;
+}
+
+td{
+  width:30px;
+  height:30px;
+  text-align:center;
+  font-weight:bold;
+  color:red;
+  font-size:25px;
+  border-collapse: collapse;
+  border:2px solid black;
+}
+table{
+  border-collapse: collapse;
+  border:2px solid black;
+  width:480px;
+  height:480px;
+}
+.button {
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  border-radius: 8px;
+  font-size:30px;
+  margin-left:10px;
+}
+
+.button:hover {
+  background-color: #4CAF50; /* Green */
+  color: white;
+}
+
+
