@@ -31,6 +31,7 @@
 
 .text{
 	margin-left:10%;
+	font-size:25px;
 }
 
 td{
@@ -43,6 +44,9 @@ td{
   border-collapse: collapse;
   border:2px solid black;
 }
+td[data-sol="1"]{
+	color:blue;
+}
 table{
   border-collapse: collapse;
   border:2px solid black;
@@ -52,14 +56,18 @@ table{
 .button {
   -webkit-transition-duration: 0.4s; /* Safari */
   transition-duration: 0.4s;
-  border-radius: 8px;
-  font-size:30px;
+  border-radius: 4px;
+  font-size:20px;
   margin-left:10px;
 }
 
 .button:hover {
   background-color: #4CAF50; /* Green */
   color: white;
+}
+
+#grid{
+	font-size:25px;
 }
 
 

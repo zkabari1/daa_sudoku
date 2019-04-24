@@ -22,18 +22,22 @@
 			<input type="radio" name="lvl" value="med" onclick="creategrid()"> Medium
 			<input type="radio" name="lvl" value="hard" onclick="creategrid()"> Hard
 		</h4>
-	
+		
+		<div id="btns" >
+		<button type="button" class="button">Hint</button>
+		<button type="button" class="button">Check</button>
+		<button type="button" class="button" onclick="creategrid()">Reset</button><br><br>
+		<button type="button" class="button" onclick="solution()">See Solution</button><br><br>
+		<button type="button" class="button" onclick="emptygrid()">Create Your Own Grid</button>
+		</div>
+		
 	</div>
 </div>
 
 <div class="split right" >
 	<div class="centered" id="right">
 	</div>
-	<div id="btns" ><center>
-	<button type="button" class="button">Hint</button>
-	<button type="button" class="button">Solve</button>
-	<button type="button" class="button">Reset</button>
-	</center></div>
+	
 </div>
 
 <script type="text/javascript">
@@ -51,7 +55,7 @@ function creategrid() {
 	    	for (let j = 0; j < count; j++) {
 	      		let cell = document.createElement("td");
 				cell.setAttribute("contenteditable","true");
-	      		let cellText = document.createTextNode("");
+	      		let cellText = document.createTextNode('');
 	      		cell.appendChild(cellText);
 	      		row.appendChild(cell);
 	    	}
@@ -64,8 +68,11 @@ function creategrid() {
 		var easy = new Array(['','','','3'],['3','2','4',''],['','4','3','2'],['2','','','']);
 			for(let i=0;i<count;i++){
 				for(let j=0;j<count;j++){
-					if(easy[i][j]!== undefined){
+					if(easy[i][j]!== ''){
 						tbl.rows[i].cells[j].innerHTML=easy[i][j];
+					}
+					else{
+						tbl.rows[i].cells[j].setAttribute("data-sol","1");
 					}
 				}
 			}
@@ -74,8 +81,11 @@ function creategrid() {
 		var easy = new Array(['3','','',''],['','1','3',''],['','4','2',''],['','','','4']);
 			for(let i=0;i<count;i++){
 				for(let j=0;j<count;j++){
-					if(easy[i][j]!== undefined){
+					if(easy[i][j]!== ''){
 						tbl.rows[i].cells[j].innerHTML=easy[i][j];
+					}
+					else{
+						tbl.rows[i].cells[j].setAttribute("data-sol","1");
 					}
 				}
 			}
@@ -84,8 +94,11 @@ function creategrid() {
 		var easy = new Array(['1','','4',''],['','','',''],['','','',''],['','1','','2']);
 			for(let i=0;i<count;i++){
 				for(let j=0;j<count;j++){
-					if(easy[i][j]!== undefined){
+					if(easy[i][j]!== ''){
 						tbl.rows[i].cells[j].innerHTML=easy[i][j];
+					}
+					else{
+						tbl.rows[i].cells[j].setAttribute("data-sol","1");
 					}
 				}
 			}
@@ -96,8 +109,11 @@ function creategrid() {
 		var easy = new Array(['','','','','5','2'],['2','','5','','6',''],['1','','','','',''],['4','6','2','3','','5'],['','4','','','3',''],['','2','','','4','1']);
 			for(let i=0;i<count;i++){
 				for(let j=0;j<count;j++){
-					if(easy[i][j]!== undefined){
+					if(easy[i][j]!== ''){
 						tbl.rows[i].cells[j].innerHTML=easy[i][j];
+					}
+					else{
+						tbl.rows[i].cells[j].setAttribute("data-sol","1");
 					}
 				}
 			}
@@ -106,8 +122,11 @@ function creategrid() {
 		var easy = new Array(['','5','','3','','2'],['','','','','',''],['1','','','','',''],['','2','','','5',''],['','1','','4','',''],['4','','','5','6','']);
 			for(let i=0;i<count;i++){
 				for(let j=0;j<count;j++){
-					if(easy[i][j]!== undefined){
+					if(easy[i][j]!== ''){
 						tbl.rows[i].cells[j].innerHTML=easy[i][j];
+					}
+					else{
+						tbl.rows[i].cells[j].setAttribute("data-sol","1");
 					}
 				}
 			}
@@ -116,8 +135,11 @@ function creategrid() {
 		var easy = new Array(['','','6','','',''],['4','','','','','1'],['','5','','','3','2'],['','','','','',''],['','3','2','5','',''],['','','','','','']);
 			for(let i=0;i<count;i++){
 				for(let j=0;j<count;j++){
-					if(easy[i][j]!== undefined){
+					if(easy[i][j]!== ''){
 						tbl.rows[i].cells[j].innerHTML=easy[i][j];
+					}
+					else{
+						tbl.rows[i].cells[j].setAttribute("data-sol","1");
 					}
 				}
 			}
@@ -128,8 +150,11 @@ function creategrid() {
 		var easy = new Array(['5','','9','1','','','6','4','2'],['','4','1','','5','','','8',''],['6','7','','2','','4','','9','5'],['1','','','8','','3','','5','9'],['8','9','4','5','6','','3','7','1'],['','','5','4','1','','2','6','8'],['3','','8','7','4','','','',''],['','','','6','','5','8','3','4'],['4','','6','3','9','8','5','1','']);
 			for(let i=0;i<count;i++){
 				for(let j=0;j<count;j++){
-					if(easy[i][j]!== undefined){
+					if(easy[i][j]!== ''){
 						tbl.rows[i].cells[j].innerHTML=easy[i][j];
+					}
+					else{
+						tbl.rows[i].cells[j].setAttribute("data-sol","1");
 					}
 				}
 			}
@@ -138,8 +163,11 @@ function creategrid() {
 		var easy = new Array(['1','','3','','','','','7',''],['4','9','8','','7','','','',''],['7','6','5','4','2','3','8','',''],['6','5','4','','3','','','','7'],['','','','9','','','5','',''],['','7','','6','','5','','',''],['','8','7','','','','1','2','9'],['','','','','','','','6',''],['','4','6','5','1','','7','','']);
 			for(let i=0;i<count;i++){
 				for(let j=0;j<count;j++){
-					if(easy[i][j]!== undefined){
+					if(easy[i][j]!== ''){
 						tbl.rows[i].cells[j].innerHTML=easy[i][j];
+					}
+					else{
+						tbl.rows[i].cells[j].setAttribute("data-sol","1");
 					}
 				}
 			}
@@ -148,8 +176,11 @@ function creategrid() {
 		var easy = new Array(['9','','','','3','','','',''],['','','','6','','','','',''],['','','','7','1','','','2',''],['4','','','1','5','6','','',''],['','2','','','','','','',''],['','8','','4','','','','',''],['7','','','','4','','5','','9'],['1','','','8','','','3','',''],['2','','','','','','','','']);
 			for(let i=0;i<count;i++){
 				for(let j=0;j<count;j++){
-					if(easy[i][j]!== undefined){
+					if(easy[i][j]!== ''){
 						tbl.rows[i].cells[j].innerHTML=easy[i][j];
+					}
+					else{
+						tbl.rows[i].cells[j].setAttribute("data-sol","1");
 					}
 				}
 			}
@@ -160,8 +191,11 @@ function creategrid() {
 		var easy = new Array(['','','','3'],['3','2','4',''],['','4','3','2'],['2','','','']);
 			for(let i=0;i<count;i++){
 				for(let j=0;j<count;j++){
-					if(easy[i][j]!== undefined){
+					if(easy[i][j]!== ''){
 						tbl.rows[i].cells[j].innerHTML=easy[i][j];
+					}
+					else{
+						tbl.rows[i].cells[j].setAttribute("data-sol","1");
 					}
 				}
 			}
@@ -170,8 +204,11 @@ function creategrid() {
 		var easy = new Array(['3','','',''],['','1','3',''],['','4','2',''],['','','','4']);
 			for(let i=0;i<count;i++){
 				for(let j=0;j<count;j++){
-					if(easy[i][j]!== undefined){
+					if(easy[i][j]!== ''){
 						tbl.rows[i].cells[j].innerHTML=easy[i][j];
+					}
+					else{
+						tbl.rows[i].cells[j].setAttribute("data-sol","1");
 					}
 				}
 			}
@@ -180,14 +217,121 @@ function creategrid() {
 		var easy = new Array(['1','','4',''],['','','',''],['','','',''],['','1','','2']);
 			for(let i=0;i<count;i++){
 				for(let j=0;j<count;j++){
-					if(easy[i][j]!== undefined){
+					if(easy[i][j]!== ''){
 						tbl.rows[i].cells[j].innerHTML=easy[i][j];
+					}
+					else{
+						tbl.rows[i].cells[j].setAttribute("data-sol","1");
 					}
 				}
 			}
 		}
 	}
 	
+}
+
+function solution(){
+	creategrid();
+	let count=document.getElementById('grid').value;
+	let counter=0;
+	console.log("solving");
+	let result=[],rowi=[],colj=[],square=[],sol=[];
+	let body = document.getElementById("right");
+	let tbl = body.getElementsByTagName("table")[0];
+	let tblbody = tbl.getElementsByTagName("tbody")[0];
+	for(let i=0;i<count;i++){
+	row = tblbody.getElementsByTagName("tr")[i];
+		result[i]=[];
+		for(let j=0;j<count;j++){
+			col = row.getElementsByTagName("td")[j];
+			cellvalue=col.childNodes[0];
+			if(cellvalue!==undefined){
+				result[i][j]=cellvalue.data;
+			}
+		}
+	}
+	sol=result;
+	for(let i=0;i<count;i++){
+		for(let j=0;j<count;j++){
+			if(sol[i][j] !== ''){
+				counter++;
+			}
+		}
+	}
+	console.log(counter);
+	while(counter<16){
+		for(let i=0;i<count;i++){
+			for(let j=0;j<count;j++){
+				if(result[i][j] === ''){
+					for(let k=0;k<count;k++){
+						rowi[k]=result[i][k];
+					}
+					for(let k=0;k<count;k++){
+						colj[k]=result[k][j];
+					}
+					if((i === 0 || i === 1) && (j === 0 || j === 1)) {
+						for(let l=0,k=0;l<count/2;l++,k++){
+							for(let m=0;m<count/2;m++,k++){
+								square[k]=result[l][m];
+							}
+						}
+					}
+					else if((i === 0 || i === 1) && (j === 2 || j === 3)){
+						for(let l=0,k=0;l<count/2;l++,k++){
+							for(let m=2;m<count;m++,k++){
+								square[k]=result[l][m];
+							}
+						}
+					}
+					else if((i === 2 || i === 3) && (j === 0 || j === 1)){
+						for(let l=2,k=0;l<count;l++,k++){
+							for(let m=0;m<count/2;m++,k++){
+								square[k]=result[l][m];
+							}
+						}
+					}
+					else if((i === 2 || i === 3) && (j === 2 || j === 3)){
+						for(let l=2,k=0;l<count;l++,k++){
+							for(let m=2;m<count;m++,k++){
+								square[k]=result[l][m];
+							}
+						}
+					}
+					function notincluded(value){
+						return (!rowi.includes(value) && !colj.includes(value) && !square.includes(value));
+					}
+					tbl.rows[i].cells[j].setAttribute("data-sol","1");
+					tbl.rows[i].cells[j].innerHTML=Array.from('1234').filter(notincluded);
+					if(Array.from('1234').filter(notincluded).length === 1){
+						sol[i][j]=Array.from('1234').filter(notincluded)[0];
+						result[i][j]=Array.from('1234').filter(notincluded)[0];
+						counter++;
+						console.log(result[i][j]);
+						console.log(counter);
+					}
+				}
+			}
+		}
+	}
+}
+function emptygrid() {
+	document.getElementById("right").innerHTML = "";
+	let count=document.getElementById('grid').value;
+	let body = document.getElementById("right");
+		let tbl = document.createElement("table");
+	  	let tblBody = document.createElement("tbody");
+	  	for (let i = 0; i < count; i++) {
+	    	let row = document.createElement("tr");
+	    	for (let j = 0; j < count; j++) {
+	      		let cell = document.createElement("td");
+				cell.setAttribute("contenteditable","true");
+	      		let cellText = document.createTextNode('');
+	      		cell.appendChild(cellText);
+	      		row.appendChild(cell);
+	    	}
+	    	tblBody.appendChild(row);
+	  	}tbl.appendChild(tblBody);
+	  	body.appendChild(tbl);	
 }
 </script>
 
