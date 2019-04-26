@@ -43,6 +43,7 @@
 <script type="text/javascript">
 document.getElementById("grid").onchange = function() {creategrid()};
 document.getElementsByName("lvl").onchange = function() {creategrid()};
+let MAX=25;
 function creategrid() {
 	document.getElementById("right").innerHTML = "";
 	let count=document.getElementById('grid').value;
@@ -229,12 +230,31 @@ function creategrid() {
 	}
 	
 }
-
+function emptygrid() {
+	document.getElementById("right").innerHTML = "";
+	let count=document.getElementById('grid').value;
+	let body = document.getElementById("right");
+		let tbl = document.createElement("table");
+	  	let tblBody = document.createElement("tbody");
+	  	for (let i = 0; i < count; i++) {
+	    	let row = document.createElement("tr");
+	    	for (let j = 0; j < count; j++) {
+	      		let cell = document.createElement("td");
+				cell.setAttribute("contenteditable","true");
+	      		let cellText = document.createTextNode('');
+	      		cell.appendChild(cellText);
+	      		row.appendChild(cell);
+	    	}
+	    	tblBody.appendChild(row);
+	  	}tbl.appendChild(tblBody);
+	  	body.appendChild(tbl);	
+}
+/*
 function solution(){
 	creategrid();
 	let count=document.getElementById('grid').value;
 	let counter=0;
-	console.log("solving");
+	console.log("solving 4x4");
 	let result=[],rowi=[],colj=[],square=[],sol=[];
 	let body = document.getElementById("right");
 	let tbl = body.getElementsByTagName("table")[0];
@@ -259,79 +279,180 @@ function solution(){
 		}
 	}
 	console.log(counter);
-	while(counter<16){
-		for(let i=0;i<count;i++){
-			for(let j=0;j<count;j++){
-				if(result[i][j] === ''){
-					for(let k=0;k<count;k++){
-						rowi[k]=result[i][k];
-					}
-					for(let k=0;k<count;k++){
-						colj[k]=result[k][j];
-					}
-					if((i === 0 || i === 1) && (j === 0 || j === 1)) {
-						for(let l=0,k=0;l<count/2;l++,k++){
-							for(let m=0;m<count/2;m++,k++){
-								square[k]=result[l][m];
+	if(count==4){
+		while(counter<16){
+			for(let i=0;i<count;i++){
+				for(let j=0;j<count;j++){
+					if(result[i][j] === ''){
+						for(let k=0;k<count;k++){
+							rowi[k]=result[i][k];
+						}
+						for(let k=0;k<count;k++){
+							colj[k]=result[k][j];
+						}
+						if((i === 0 || i === 1) && (j === 0 || j === 1)) {
+							for(let l=0,k=0;l<count/2;l++,k++){
+								for(let m=0;m<count/2;m++,k++){
+									square[k]=result[l][m];
+								}
 							}
 						}
-					}
-					else if((i === 0 || i === 1) && (j === 2 || j === 3)){
-						for(let l=0,k=0;l<count/2;l++,k++){
-							for(let m=2;m<count;m++,k++){
-								square[k]=result[l][m];
+						else if((i === 0 || i === 1) && (j === 2 || j === 3)){
+							for(let l=0,k=0;l<count/2;l++,k++){
+								for(let m=2;m<count;m++,k++){
+									square[k]=result[l][m];
+								}
 							}
 						}
-					}
-					else if((i === 2 || i === 3) && (j === 0 || j === 1)){
-						for(let l=2,k=0;l<count;l++,k++){
-							for(let m=0;m<count/2;m++,k++){
-								square[k]=result[l][m];
+						else if((i === 2 || i === 3) && (j === 0 || j === 1)){
+							for(let l=2,k=0;l<count;l++,k++){
+								for(let m=0;m<count/2;m++,k++){
+									square[k]=result[l][m];
+								}
 							}
 						}
-					}
-					else if((i === 2 || i === 3) && (j === 2 || j === 3)){
-						for(let l=2,k=0;l<count;l++,k++){
-							for(let m=2;m<count;m++,k++){
-								square[k]=result[l][m];
+						else if((i === 2 || i === 3) && (j === 2 || j === 3)){
+							for(let l=2,k=0;l<count;l++,k++){
+								for(let m=2;m<count;m++,k++){
+									square[k]=result[l][m];
+								}
 							}
 						}
-					}
-					function notincluded(value){
-						return (!rowi.includes(value) && !colj.includes(value) && !square.includes(value));
-					}
-					tbl.rows[i].cells[j].setAttribute("data-sol","1");
-					tbl.rows[i].cells[j].innerHTML=Array.from('1234').filter(notincluded);
-					if(Array.from('1234').filter(notincluded).length === 1){
-						sol[i][j]=Array.from('1234').filter(notincluded)[0];
-						result[i][j]=Array.from('1234').filter(notincluded)[0];
-						counter++;
-						console.log(result[i][j]);
-						console.log(counter);
+						function notincluded(value){
+							return (!rowi.includes(value) && !colj.includes(value) && !square.includes(value));
+						}
+						tbl.rows[i].cells[j].setAttribute("data-sol","1");
+						tbl.rows[i].cells[j].innerHTML=Array.from('1234').filter(notincluded);
+						if(Array.from('1234').filter(notincluded).length === 1){
+							sol[i][j]=Array.from('1234').filter(notincluded)[0];
+							result[i][j]=Array.from('1234').filter(notincluded)[0];
+							counter++;
+							console.log(result[i][j]);
+							console.log(counter);
+						}
 					}
 				}
 			}
 		}
 	}
+}*/
+function solution(){
+		/*creategrid();
+		let size=document.getElementById('grid').value;
+		console.log("solving 9x9");
+		let sudoku=new Array();
+		let solved_flag = 0;
+		let body = document.getElementById("right");
+		let tbl = body.getElementsByTagName("table")[0];
+		let tblbody = tbl.getElementsByTagName("tbody")[0];
+		for(let i=0;i<size;i++){
+		row = tblbody.getElementsByTagName("tr")[i];
+			sudoku[i]=new Array();
+			for(let j=0;j<size;j++){
+				col = row.getElementsByTagName("td")[j];
+				cellvalue=col.childNodes[0];
+				if(cellvalue.data==="")
+					sudoku[i][j]="0";
+				else
+					sudoku[i][j]=cellvalue.data;
+			}
+		}
+		//console.log("main",sudoku);*/
+		let sudoku = [[5,0,9,1,0,0,6,4,2],[0,4,1,0,5,0,0,8,0],[6,7,0,2,0,4,0,9,5],[1,0,0,8,0,3,0,5,9],[8,9,4,5,6,0,3,7,1],[0,0,5,4,1,0,2,6,8],[3,0,8,7,4,0,0,0,0],[0,0,0,6,0,5,8,3,4],[4,0,6,3,9,8,5,1,0]];
+		let size=9;
+		let solved_flag = 0;
+		Solve(sudoku, size, solved_flag);
 }
-function emptygrid() {
-	document.getElementById("right").innerHTML = "";
-	let count=document.getElementById('grid').value;
-	let body = document.getElementById("right");
-		let tbl = document.createElement("table");
-	  	let tblBody = document.createElement("tbody");
-	  	for (let i = 0; i < count; i++) {
-	    	let row = document.createElement("tr");
-	    	for (let j = 0; j < count; j++) {
-	      		let cell = document.createElement("td");
-				cell.setAttribute("contenteditable","true");
-	      		let cellText = document.createTextNode('');
-	      		cell.appendChild(cellText);
-	      		row.appendChild(cell);
-	    	}
-	    	tblBody.appendChild(row);
-	  	}tbl.appendChild(tblBody);
-	  	body.appendChild(tbl);	
+function isFull(sudoku, size)
+{
+    let i,j;
+	//console.log(sudoku);
+    for(i=0;i<size;i++)
+        for(j=0;j<size;j++)
+			if(sudoku[i][j]===0)
+				return false;
+    return true;
+}
+function findPossibleValues(sudoku, size, a, r,c)
+{
+    let n=0;
+	let i,j;
+    let s=Math.sqrt(size);
+    let b=new Array();
+	console.log("r1=",r);
+	console.log("c1=",c);
+	//b.fill(0);
+	//console.log(sudoku);
+    //Note no.s appeared in current row
+    for(i=0; i<size; i++){
+		b[sudoku[r][i]]=1;
+	}
+	console.log("bcol= ",b);
+    
+    //Note no.s appeared in current column
+    for(i=0; i<size; i++){
+		b[sudoku[i][c]]=1;
+	}
+	console.log("brow= ",b);
+    
+    //Note no.s appeared in current block
+    r=(r/s)*s, c=(c/s)*s;
+	
+    for(i=r; i<r+s; i++){
+        for(j=c; j<c+s;j++){
+			b[sudoku[i][j]]=1;
+		}
+	}
+	console.log("b=",b);
+    
+    //Fill array a[] with no.s unappeared in current row, column and block
+    for(i=1;i<=size; i++)
+        if(!b[i])
+            a[n++]=i;
+
+    return n;
+}
+function Solve(sudoku,size,solved_flag){
+	let i,j, n=0;
+	let a=new Array();
+	//console.log(sudoku);
+	//a.fill(0);
+	//console.log("a= ",a);
+    if(isFull(sudoku, size))    {
+		if(!solved_flag)
+            console.log("Sudoku Solved Successfully!");
+        solved_flag = 1;
+		console.log(sudoku);
+		return;
+    }
+	
+	let break_flag = 0;
+    for(i=0;i<size;i++){
+        for(j=0;j<size;j++)
+            if(!sudoku[i][j]){
+                break_flag = 1;
+				break;
+            }
+		
+        if(break_flag)
+            break;
+    }
+	console.log("i=",i);
+	console.log("j=",j);
+    n= findPossibleValues(sudoku, size, a, i, j);
+	console.log("n=",n);
+	console.log("a=",a);
+    for(let l=0;l<n;l++)
+    {
+        console.log("ans=",a[l],i,"+",j);
+		sudoku[i][j]=a[l];
+		console.log(sudoku[i][j]);
+		console.log(sudoku);
+		//tbl.rows[i].cells[j].innerHTML=a[l];
+        Solve(sudoku, size, solved_flag);
+    }
+
+    sudoku[i][j]=0;
 }
 </script>
 
