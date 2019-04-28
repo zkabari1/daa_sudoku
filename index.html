@@ -43,7 +43,25 @@
 <script type="text/javascript">
 document.getElementById("grid").onchange = function() {creategrid()};
 document.getElementsByName("lvl").onchange = function() {creategrid()};
-let MAX=25;
+var constraints = new Array(81);
+for(var x = 0; x < 81; x++)	
+	constraints[x] = new Array(10);
+var blockDef = new Array(9);
+blockDef[0] = [0,1,2,9,10,11,18,19,20];
+blockDef[1] = [3,4,5,12,13,14,21,22,23];
+blockDef[2] = [6,7,8,15,16,17,24,25,26];
+blockDef[3] = [27,28,29,36,37,38,45,46,47];
+blockDef[4] = [30,31,32,39,40,41,48,49,50];
+blockDef[5] = [33,34,35,42,43,44,51,52,53];
+blockDef[6] = [54,55,56,63,64,65,72,73,74];
+blockDef[7] = [57,58,59,66,67,68,75,76,77];
+blockDef[8] = [60,61,62,69,70,71,78,79,80];
+var cOrder = new Array(81);
+var cpointers = new Array(81);
+var iters_per_timeslice = 4000;
+var sleep_timeslice = 500;
+var randomize = false;
+var timeslices = 0;
 function creategrid() {
 	document.getElementById("right").innerHTML = "";
 	let count=document.getElementById('grid').value;
@@ -107,13 +125,14 @@ function creategrid() {
 	}
 	else if(count==6){
 		if(level === "easy"){
-		var easy = new Array(['','','','','5','2'],['2','','5','','6',''],['1','','','','',''],['4','6','2','3','','5'],['','4','','','3',''],['','2','','','4','1']);
-			for(let i=0;i<count;i++){
-				for(let j=0;j<count;j++){
-					if(easy[i][j]!== ''){
-						tbl.rows[i].cells[j].innerHTML=easy[i][j];
+		var easy = [0,0,0,0,5,2,2,0,5,0,6,0,1,0,0,0,0,0,4,6,2,3,0,5,0,4,0,0,3,0,0,2,0,0,4,1];
+			for(let i=0,k=0;i<count;i++){
+				for(let j=0;j<count;j++,k++){
+					if(easy[k]!== 0){
+						tbl.rows[i].cells[j].innerHTML=easy[k];
 					}
 					else{
+						tbl.rows[i].cells[j].innerHTML="";
 						tbl.rows[i].cells[j].setAttribute("data-sol","1");
 					}
 				}
@@ -148,39 +167,42 @@ function creategrid() {
 	}
 	else if(count==9){
 		if(level === "easy"){
-		var easy = new Array(['5','','9','1','','','6','4','2'],['','4','1','','5','','','8',''],['6','7','','2','','4','','9','5'],['1','','','8','','3','','5','9'],['8','9','4','5','6','','3','7','1'],['','','5','4','1','','2','6','8'],['3','','8','7','4','','','',''],['','','','6','','5','8','3','4'],['4','','6','3','9','8','5','1','']);
-			for(let i=0;i<count;i++){
-				for(let j=0;j<count;j++){
-					if(easy[i][j]!== ''){
-						tbl.rows[i].cells[j].innerHTML=easy[i][j];
+		var easy = [5,0,9,1,0,0,6,4,2,0,4,1,0,5,0,0,8,0,6,7,0,2,0,4,0,9,5,1,0,0,8,0,3,0,5,9,8,9,4,5,6,0,3,7,1,0,0,5,4,1,0,2,6,8,3,0,8,7,4,0,0,0,0,0,0,0,6,0,5,8,3,4,4,0,6,3,9,8,5,1,0];
+			for(let i=0,k=0;i<count;i++){
+				for(let j=0;j<count;j++,k++){
+					if(easy[k]!== 0){
+						tbl.rows[i].cells[j].innerHTML=easy[k];
 					}
 					else{
+						tbl.rows[i].cells[j].innerHTML="";
 						tbl.rows[i].cells[j].setAttribute("data-sol","1");
 					}
 				}
 			}
 		}
 		else if(level === "med"){
-		var easy = new Array(['1','','3','','','','','7',''],['4','9','8','','7','','','',''],['7','6','5','4','2','3','8','',''],['6','5','4','','3','','','','7'],['','','','9','','','5','',''],['','7','','6','','5','','',''],['','8','7','','','','1','2','9'],['','','','','','','','6',''],['','4','6','5','1','','7','','']);
-			for(let i=0;i<count;i++){
-				for(let j=0;j<count;j++){
-					if(easy[i][j]!== ''){
-						tbl.rows[i].cells[j].innerHTML=easy[i][j];
+		var easy = [1,0,3,0,0,0,0,7,0,4,9,8,0,7,0,0,0,0,7,6,5,4,2,3,8,0,0,6,5,4,0,3,0,0,0,7,0,0,0,9,0,0,5,0,0,0,7,0,6,0,5,0,0,0,0,8,7,0,0,0,1,2,9,0,0,0,0,0,0,0,6,0,0,4,6,5,1,0,7,0,0];
+			for(let i=0,k=0;i<count;i++){
+				for(let j=0;j<count;j++,k++){
+					if(easy[k]!== 0){
+						tbl.rows[i].cells[j].innerHTML=easy[k];
 					}
 					else{
+						tbl.rows[i].cells[j].innerHTML="";
 						tbl.rows[i].cells[j].setAttribute("data-sol","1");
 					}
 				}
 			}
 		}
 		else{
-		var easy = new Array(['9','','','','3','','','',''],['','','','6','','','','',''],['','','','7','1','','','2',''],['4','','','1','5','6','','',''],['','2','','','','','','',''],['','8','','4','','','','',''],['7','','','','4','','5','','9'],['1','','','8','','','3','',''],['2','','','','','','','','']);
-			for(let i=0;i<count;i++){
-				for(let j=0;j<count;j++){
-					if(easy[i][j]!== ''){
-						tbl.rows[i].cells[j].innerHTML=easy[i][j];
+		var easy = [9,0,0,0,3,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,7,1,0,0,2,0,4,0,0,1,5,6,0,0,0,0,2,0,0,0,0,0,0,0,0,8,0,4,0,0,0,0,0,7,0,0,0,4,0,5,0,9,1,0,0,8,0,0,3,0,0,2,0,0,0,0,0,0,0,0];
+			for(let i=0,k=0;i<count;i++){
+				for(let j=0;j<count;j++,k++){
+					if(easy[k]!== 0){
+						tbl.rows[i].cells[j].innerHTML=easy[k];
 					}
 					else{
+						tbl.rows[i].cells[j].innerHTML="";
 						tbl.rows[i].cells[j].setAttribute("data-sol","1");
 					}
 				}
@@ -249,8 +271,7 @@ function emptygrid() {
 	  	}tbl.appendChild(tblBody);
 	  	body.appendChild(tbl);	
 }
-/*
-function solution(){
+function solvingfour(){
 	creategrid();
 	let count=document.getElementById('grid').value;
 	let counter=0;
@@ -279,7 +300,6 @@ function solution(){
 		}
 	}
 	console.log(counter);
-	if(count==4){
 		while(counter<16){
 			for(let i=0;i<count;i++){
 				for(let j=0;j<count;j++){
@@ -334,125 +354,220 @@ function solution(){
 				}
 			}
 		}
-	}
-}*/
-function solution(){
-		/*creategrid();
-		let size=document.getElementById('grid').value;
-		console.log("solving 9x9");
-		let sudoku=new Array();
-		let solved_flag = 0;
-		let body = document.getElementById("right");
-		let tbl = body.getElementsByTagName("table")[0];
-		let tblbody = tbl.getElementsByTagName("tbody")[0];
-		for(let i=0;i<size;i++){
-		row = tblbody.getElementsByTagName("tr")[i];
-			sudoku[i]=new Array();
-			for(let j=0;j<size;j++){
-				col = row.getElementsByTagName("td")[j];
-				cellvalue=col.childNodes[0];
-				if(cellvalue.data==="")
-					sudoku[i][j]="0";
-				else
-					sudoku[i][j]=cellvalue.data;
+}
+function solvingnine(){
+	console.log("Solving 9x9...");
+	creategrid();
+	let count=document.getElementById('grid').value;
+	let body = document.getElementById("right");
+	let tbl = body.getElementsByTagName("table")[0];
+	let tblbody = tbl.getElementsByTagName("tbody")[0];
+	let input=new Array(81);
+	for(let i=0,k=0;i<count;i++){
+	row = tblbody.getElementsByTagName("tr")[i];
+		for(let j=0;j<count;j++,k++){
+			col = row.getElementsByTagName("td")[j];
+			cellvalue=col.childNodes[0];
+			if(cellvalue!==undefined){
+				input[k]=cellvalue.data;
 			}
 		}
-		//console.log("main",sudoku);*/
-		let sudoku = [[5,0,9,1,0,0,6,4,2],[0,4,1,0,5,0,0,8,0],[6,7,0,2,0,4,0,9,5],[1,0,0,8,0,3,0,5,9],[8,9,4,5,6,0,3,7,1],[0,0,5,4,1,0,2,6,8],[3,0,8,7,4,0,0,0,0],[0,0,0,6,0,5,8,3,4],[4,0,6,3,9,8,5,1,0]];
-		let size=9;
-		let solved_flag = 0;
-		Solve(sudoku, size, solved_flag);
-}
-function isFull(sudoku, size)
-{
-    let i,j;
-	//console.log(sudoku);
-    for(i=0;i<size;i++)
-        for(j=0;j<size;j++)
-			if(sudoku[i][j]===0)
-				return false;
-    return true;
-}
-function findPossibleValues(sudoku, size, a, r,c)
-{
-    let n=0;
-	let i,j;
-    let s=Math.sqrt(size);
-    let b=new Array();
-	console.log("r1=",r);
-	console.log("c1=",c);
-	//b.fill(0);
-	//console.log(sudoku);
-    //Note no.s appeared in current row
-    for(i=0; i<size; i++){
-		b[sudoku[r][i]]=1;
 	}
-	console.log("bcol= ",b);
-    
-    //Note no.s appeared in current column
-    for(i=0; i<size; i++){
-		b[sudoku[i][c]]=1;
-	}
-	console.log("brow= ",b);
-    
-    //Note no.s appeared in current block
-    r=(r/s)*s, c=(c/s)*s;
-	
-    for(i=r; i<r+s; i++){
-        for(j=c; j<c+s;j++){
-			b[sudoku[i][j]]=1;
+	var x;
+	do {
+		x = updateConstraints(input);
+	} while(x > 0);
+	search_dfs();
+}
+function search_dfs()	{
+	console.log("Using dfs");
+	reorder_constraints();
+	initialize_dfs();
+	search_r();
+}
+function reorder_constraints()	{
+	var fewest_constraints = 11;
+	var fewest = -1;
+	cOrder.length = 0;
+
+	/* find a cell with the fewest constraints */
+	for(var p = 0; p < 81; p++)
+		if(constraints[p][0] > 1 && constraints[p][0] < fewest_constraints)	{
+			fewest = p;
+			fewest_constraints = constraints[p][0];
 		}
-	}
-	console.log("b=",b);
-    
-    //Fill array a[] with no.s unappeared in current row, column and block
-    for(i=1;i<=size; i++)
-        if(!b[i])
-            a[n++]=i;
-
-    return n;
-}
-function Solve(sudoku,size,solved_flag){
-	let i,j, n=0;
-	let a=new Array();
-	//console.log(sudoku);
-	//a.fill(0);
-	//console.log("a= ",a);
-    if(isFull(sudoku, size))    {
-		if(!solved_flag)
-            console.log("Sudoku Solved Successfully!");
-        solved_flag = 1;
-		console.log(sudoku);
+	if(fewest == -1)
 		return;
-    }
+	cOrder.push(fewest);
 	
-	let break_flag = 0;
-    for(i=0;i<size;i++){
-        for(j=0;j<size;j++)
-            if(!sudoku[i][j]){
-                break_flag = 1;
-				break;
-            }
+	/* add all constraints along fewest's row and column and block */
+	var r = Math.floor(fewest / 9);
+	var c = fewest % 9;
+	var b = Math.floor(r/3)*3 + Math.floor(c/3);
+	for(var x = 0; x < 9; x++)
+		if(x*9+c != fewest && constraints[x*9+c][0] > 1)
+			cOrder.push(x*9+c);
+	for(var x = 0; x < 9; x++)
+		if(r*9+x != fewest && constraints[r*9+x][0] > 1)
+			cOrder.push(r*9+x);
+	for(var x = 0; x < 9; x++)	{
+		var r_2 = Math.floor(blockDef[b][x]/9);
+		var c_2 = blockDef[b][x] % 9;
+		if(r_2 == r || c_2 == c || constraints[blockDef[b][x]][0] < 2)
+			continue;
+		cOrder.push(blockDef[b][x]);	
+	}
+	
+	/* add all the remaining constraints */
+	for(var x = 0; x < 81; x++)	{
+		if(constraints[x][0] < 2)
+			continue;
+		var r_2 = Math.floor(x/ 9);
+		var c_2 = x% 9;
+		var b_2 = Math.floor(r_2/3)*3 + Math.floor(c_2/3);
+		if(r_2 == r || c_2 == c || b_2 == b)
+			continue;
+		cOrder.push(x);	
+	}
+}
+function initialize_dfs()	{
+	for(var x = 0; x < 81; x++)
+		cpointers[x] = 0;
+	search_pos = 0;
+}
+function search_r()	{
+  	var iter = 0;
+	let body = document.getElementById("right");
+	let tbl = body.getElementsByTagName("table")[0];
+	
+  	while(iter++ < iters_per_timeslice)	{
+  		
+  		if(search_pos >= cOrder.length)	{
+  			/* Solved */
+		  	for(var p = 0; p < cOrder.length; p++)	{
+		  		var cons = cOrder[p];
+		  		var r = Math.floor(cons/9);
+		  		var c = cons%9;
+		  		tbl.rows[r].cells[c].innerHTML = cpointers[cons];
+		  	}
+  			return;
+  		}
+  	
+		var cons = cOrder[search_pos];
 		
-        if(break_flag)
-            break;
-    }
-	console.log("i=",i);
-	console.log("j=",j);
-    n= findPossibleValues(sudoku, size, a, i, j);
-	console.log("n=",n);
-	console.log("a=",a);
-    for(let l=0;l<n;l++)
-    {
-        console.log("ans=",a[l],i,"+",j);
-		sudoku[i][j]=a[l];
-		console.log(sudoku[i][j]);
-		console.log(sudoku);
-		//tbl.rows[i].cells[j].innerHTML=a[l];
-        Solve(sudoku, size, solved_flag);
-    }
+		/* find an allowable number for this cell */
+		while(++cpointers[cons] < 10)	
+			if(constraints[cons][cpointers[cons]] == 1 && validate())	
+				break;
+			
+		if(cpointers[cons] >= 10)	{
+			cpointers[cons] = 0;
+			search_pos--;
+			continue;
+		} 
+		
+		search_pos++;  
+  	}  
+  	
+  	/* display progress */
+  	for(var p = 0; p < cOrder.length; p++)	{
+  		var cons = cOrder[p];
+  		var r = Math.floor(cons/9);
+  		var c = cons%9;
+  		tbl.rows[r].cells[c].innerHTML = p<search_pos?cpointers[cons]:" ";
+  	}
+	if(randomize && timeslices % 50 == 0)
+		randomize_constraints_from(search_pos);
+  	
+  	timeslices++;
+  	console.log("Phase 2: Search.<br><b>Timeslices:</b> "+timeslices);
+  	setTimeout("search_r()", sleep_timeslice);
+	
+}
 
-    sudoku[i][j]=0;
+function updateConstraints(pos)	{
+	let body = document.getElementById("right");
+	let tbl = body.getElementsByTagName("table")[0];
+//	console.log(pos);
+	var solved = 0;
+	var sum = 0;
+	var num = 0;
+
+	for(var p = 0; p < 81; p++)	{
+		for(var x = 0; x < 10; x++)
+			constraints[p][x] = 0;
+			
+		if(pos[p] >= 1 && pos[p] <= 9)	{
+		  	/* filled cell, no constraints */
+			constraints[p][0] = 1;
+			constraints[p][pos[p]] = 1;
+		}
+		else	{
+			/* blank square, find possible values */
+			var r = Math.floor(p / 9);
+			var c = p % 9;
+			for(var x = 1; x <= 9; x++)
+				constraints[p][x] = 1;
+			/* get row constraints */
+			for(var x = 0; x < 9; x++)
+				if(pos[r * 9 + x] > 0)
+					constraints[p][Number(pos[r*9+x])] = 0;
+			/* get column constraints */
+			for(var x = 0; x < 9; x++)
+				if(pos[x * 9 + c] > 0)
+					constraints[p][Number(pos[x*9+c])] = 0;
+			/* get block constraints */
+			var block = Math.floor(r/3)*3 + Math.floor(c/3);
+			for(var x = 0; x < 9; x++)
+			  if(pos[blockDef[block][x]] > 0)
+			    constraints[p][Number(pos[blockDef[block][x]])] = 0;
+			
+			/* update constraints */
+			var last_valid = -1;
+			for(var x = 1; x <= 9; x++)
+				if(constraints[p][x] == 1) 	{
+					constraints[p][0]++;
+					last_valid = x;
+				}
+				
+			if(constraints[p][0] == 1)	{
+			  	pos[p] = last_valid;
+				tbl.rows[r].cells[c].innerHTML=pos[p];
+				solved++;
+			}
+			
+		}
+
+		if(constraints[p][0] > 0)	{		
+			sum += constraints[p][0];
+			num++;
+		}
+	}		
+	
+	return solved;
+}
+function validate()	{
+	var x = cOrder[search_pos];
+	var cur_r = Math.floor(x/9);
+	var cur_c = x%9;
+	var cur_b = Math.floor(cur_r/3)*3 + Math.floor(cur_c/3);
+
+	for(var m = 0; m < search_pos; m++)	{
+		var p = cOrder[m];
+		var r = Math.floor(p / 9);
+		var c = p % 9;
+		var b = Math.floor(r/3)*3 + Math.floor(c/3);
+		if( (r == cur_r || c == cur_c || b == cur_b) && cpointers[p] == cpointers[x])	
+			return false;	
+	}
+	return true;
+}
+function solution(){
+	let count=document.getElementById('grid').value;
+	if (count == 4)
+		solvingfour();
+	if (count == 9)
+		solvingnine();	
 }
 </script>
 
