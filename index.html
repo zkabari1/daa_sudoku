@@ -68,15 +68,16 @@ function creategrid() {
 	let level=document.querySelector('input[name=lvl]:checked').value;
 	let body = document.getElementById("right");
 		let tbl = document.createElement("table");
+		tbl.setAttribute("id",'A'+count);
 	  	let tblBody = document.createElement("tbody");
 	  	for (let i = 0; i < count; i++) {
 	    	let row = document.createElement("tr");
 	    	for (let j = 0; j < count; j++) {
-	      		let cell = document.createElement("td");
+				let cell = document.createElement("td");
 				cell.setAttribute("contenteditable","true");
 	      		let cellText = document.createTextNode('');
 	      		cell.appendChild(cellText);
-	      		row.appendChild(cell);
+				row.appendChild(cell);
 	    	}
 	    	tblBody.appendChild(row);
 	  	}tbl.appendChild(tblBody);
@@ -181,7 +182,7 @@ function creategrid() {
 			}
 		}
 		else if(level === "med"){
-		var easy = [1,0,3,0,0,0,0,7,0,4,9,8,0,7,0,0,0,0,7,6,5,4,2,3,8,0,0,6,5,4,0,3,0,0,0,7,0,0,0,9,0,0,5,0,0,0,7,0,6,0,5,0,0,0,0,8,7,0,0,0,1,2,9,0,0,0,0,0,0,0,6,0,0,4,6,5,1,0,7,0,0];
+		var easy = [9,0,0,0,3,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,7,1,0,0,2,0,4,0,0,1,5,6,0,0,0,0,2,0,0,0,0,0,0,0,0,8,0,4,0,0,0,0,0,7,0,0,0,4,0,5,0,9,1,0,0,8,0,0,3,0,0,2,0,0,0,0,0,0,0,0];
 			for(let i=0,k=0;i<count;i++){
 				for(let j=0;j<count;j++,k++){
 					if(easy[k]!== 0){
@@ -195,7 +196,7 @@ function creategrid() {
 			}
 		}
 		else{
-		var easy = [9,0,0,0,3,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,7,1,0,0,2,0,4,0,0,1,5,6,0,0,0,0,2,0,0,0,0,0,0,0,0,8,0,4,0,0,0,0,0,7,0,0,0,4,0,5,0,9,1,0,0,8,0,0,3,0,0,2,0,0,0,0,0,0,0,0];
+		var easy = [1,0,0,0,0,6,0,0,0,0,5,0,7,0,0,0,0,3,0,0,9,0,2,0,0,0,0,0,4,0,5,0,0,3,0,0,0,0,0,0,9,0,0,5,0,0,0,0,0,0,0,0,7,4,0,7,0,8,0,0,0,4,0,6,0,0,0,0,0,8,0,0,0,0,2,0,0,1,0,0,0];
 			for(let i=0,k=0;i<count;i++){
 				for(let j=0;j<count;j++,k++){
 					if(easy[k]!== 0){
@@ -211,13 +212,14 @@ function creategrid() {
 	}
 	else{
 		if(level === "easy"){
-		var easy = new Array(['','','','3'],['3','2','4',''],['','4','3','2'],['2','','','']);
-			for(let i=0;i<count;i++){
-				for(let j=0;j<count;j++){
-					if(easy[i][j]!== ''){
-						tbl.rows[i].cells[j].innerHTML=easy[i][j];
+		var easy = [0,3,0,0,0,0,11,0,5,14,0,6,0,10,0,0,0,0,0,4,3,0,0,0,0,12,15,10,0,0,0,0,0,0,1,15,14,10,13,16,0,0,4,2,0,0,0,9,0,2,16,0,9,12,0,0,0,7,0,0,0,0,0,0,0,14,10,0,2,0,0,1,0,5,6,0,0,0,16,0,4,0,0,7,0,0,0,0,0,0,0,0,0,0,5,0,16,13,9,12,0,0,0,7,2,1,0,0,0,0,0,0,8,0,0,0,0,9,0,0,0,0,0,14,15,0,7,0,0,5,4,13,7,0,0,14,0,8,0,0,0,1,0,0,6,0,15,0,0,0,1,0,0,3,0,0,4,0,0,0,0,0,0,14,11,0,5,0,0,0,0,0,0,0,13,3,3,0,0,10,0,0,6,8,0,13,0,0,16,15,0,7,2,0,0,8,10,0,16,0,3,0,0,5,14,0,15,0,15,0,0,0,0,0,9,0,0,6,0,0,3,7,0,0,0,0,13,5,0,3,0,0,0,0,0,0,0,0,10,1,14,16,0,0,5,13,15,11,0,0,0,0,6,4,12,0];
+			for(let i=0,k=0;i<count;i++){
+				for(let j=0;j<count;j++,k++){
+					if(easy[k]!== 0){
+						tbl.rows[i].cells[j].innerHTML=easy[k];
 					}
 					else{
+						tbl.rows[i].cells[j].innerHTML="";
 						tbl.rows[i].cells[j].setAttribute("data-sol","1");
 					}
 				}
@@ -249,14 +251,14 @@ function creategrid() {
 				}
 			}
 		}
-	}
-	
+	}	
 }
 function emptygrid() {
 	document.getElementById("right").innerHTML = "";
 	let count=document.getElementById('grid').value;
 	let body = document.getElementById("right");
 		let tbl = document.createElement("table");
+		tbl.setAttribute("id",'A'+count);
 	  	let tblBody = document.createElement("tbody");
 	  	for (let i = 0; i < count; i++) {
 	    	let row = document.createElement("tr");

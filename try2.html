@@ -148,7 +148,7 @@ function creategrid() {
 	}
 	else if(count==9){
 		if(level === "easy"){
-		var easy = [5,0,9,1,0,0,6,4,2,0,4,1,0,5,0,0,8,0,6,7,0,2,0,4,0,9,5,1,0,0,8,0,3,0,5,9,8,9,4,5,6,0,3,7,1,0,0,5,4,1,0,2,6,8,3,0,8,7,4,0,0,0,0,0,0,0,6,0,5,8,3,4,4,0,6,3,9,8,5,1,0];
+		var easy = [6,5,0,8,7,3,0,9,0,0,0,3,2,5,0,0,0,8,9,8,0,1,0,4,3,5,7,1,0,5,0,0,0,0,0,0,4,0,0,0,0,0,0,0,2,0,0,0,0,0,0,5,0,3,5,7,8,3,0,1,0,2,6,2,0,0,0,4,8,9,0,0,0,9,0,6,2,5,0,8,1];
 			for(let i=0,k=0;i<count;i++){
 				for(let j=0;j<count;j++,k++){
 					if(easy[k]!== 0){
@@ -243,11 +243,83 @@ function solution(){
 	for(let i=0;i<count;i++){
 		input[i]=[];
 		for(let j=0;j<count;j++){
-			input[i][j]=tbl.rows[i].cells[j].value;
+			if(tbl.rows[i].cells[j].innerHTML !=="")
+				input[i][j]=Number(tbl.rows[i].cells[j].innerHTML);
+			else
+				input[i][j]=0;
 		}
 	}
-	console.log(input);
+	//console.log(input);
 	//display_sudoku(input);
+	solveSudoku(count,input);
+		//display_sudoku(input,count);
+    //else
+      //  console.log("No solution");
+}
+function display_sudoku(input,count){
+	for(let i=0;i<count;i++){
+		for(let j=0;j<count;j++){
+			console.log(...input);
+		}
+	}
+}
+function putvalue(r,c,count,input){
+	let a = new Array();
+	let b = new Array();
+    for(let i=0;i<count;i++){
+        if(input[r][i] !== 0)
+            a.push(input[r][i]);
+    }
+	for(let i=0;i<count;i++){
+        if(input[i][c] !== 0)
+            a.push(input[i][c]);
+    }
+    let block_row = (Math.floor(r/3))*3;
+    let block_col = (Math.floor(c/3))*3;
+    for(let i=block_row;i<block_row+3;i++){
+        for(let j=block_col;j<block_col+3;j++){
+			if(input[i][j] !== 0)
+				a.push(input[i][j]);
+        }
+    }
+    a.filter((v,i) => a.indexOf(v) === i).sort();
+	for(let i=1;i<=count;i++){
+		if(!a.includes(i))
+			b.push(i);
+	}
+	return b;
+}
+function solveSudoku(count,input){
+	let a=new Array();
+	let body = document.getElementById("right");
+	let tbl = body.getElementsByTagName("table")[0];
+    for(let i=0;i<count;i++){
+		for(let j=0;j<count;j++){
+			if(input[i][j]===0){
+				a=putvalue(i,j,count,input);
+				//console.log(i,j,a);
+				if(a.length === 1){
+					tbl.rows[i].cells[j].innerHTML=a[0];
+					input[i][j]=a[0];
+					solveSudoku(count,input);
+				}
+			}
+		}
+	}
+	for(let i=0;i<count;i++){
+		for(let j=0;j<count;j++){
+			if(input[i][j]===0){
+				a=putvalue(i,j,count,input);
+				//console.log(i,j,a);
+				if(a[0] !== undefined){
+					tbl.rows[i].cells[j].innerHTML=a[0];
+					input[i][j]=a[0];
+					solveSudoku(count,input);
+				}
+			}
+		}
+	}
+	
 }
 </script>
 
