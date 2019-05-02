@@ -14,16 +14,16 @@
 	<div class="text">
 		<h4> Grid: 
 			<select onchange="creategrid()" id="grid">
-				<option value="4" >4x4</option>
+				<option value="4" selected="selected">4x4</option>
 				<option value="6">6x6</option>
 				<option value="9">9x9</option>
-				<option value="16" selected="selected">16x16</option>
+				<option value="16" >16x16</option>
 			</select>
 		</h4>
 		
 		<h4> Level: 
-			<input type="radio" name="lvl" value="easy" onclick="creategrid()"> Easy
-			<input type="radio" name="lvl" value="med" checked="checked" onclick="creategrid()"> Medium
+			<input type="radio" name="lvl" value="easy" checked="checked" onclick="creategrid()"> Easy
+			<input type="radio" name="lvl" value="med"  onclick="creategrid()"> Medium
 			<input type="radio" name="lvl" value="hard" onclick="creategrid()"> Hard
 		</h4>
 		
@@ -260,7 +260,22 @@ function creategrid() {
 			}
 		}
 		else{
-		var easy = [];
+		var easy = [0,0,16,0,9,4,8,0,0,0,0,0,0,10,0,13,
+					0,0,2,13,3,15,6,7,0,0,0,0,0,0,0,0,
+					15,0,3,12,5,0,0,0,0,0,0,0,0,0,6,7,
+					5,6,0,8,0,12,0,0,0,0,7,0,0,14,15,0,
+					0,0,0,0,0,3,16,0,0,1,15,0,0,0,8,0,
+					0,0,5,0,0,0,9,0,2,0,13,0,0,3,0,0,
+					4,13,1,11,0,0,0,15,0,12,0,0,0,7,16,0,
+					0,0,6,14,0,0,0,11,0,8,0,5,0,0,10,0,
+					6,0,9,0,0,0,12,0,0,0,14,0,0,0,0,0,
+					0,0,0,0,11,0,4,10,0,7,9,0,0,13,2,8,
+					13,0,0,0,0,1,14,9,4,0,10,0,11,15,0,0,
+					0,1,0,0,2,0,0,0,0,15,0,0,0,5,14,3,
+					2,0,12,0,0,0,0,4,0,0,0,0,0,0,0,15,
+					0,4,0,0,0,0,0,0,0,9,2,8,5,1,0,0,
+					0,7,0,0,0,14,13,0,0,16,0,4,0,0,12,9,
+					0,0,0,0,0,9,0,0,10,3,0,6,14,16,13,0];
 			for(let i=0,k=0;i<count;i++){
 				for(let j=0;j<count;j++,k++){
 					if(easy[k]!== 0){
@@ -302,7 +317,7 @@ function solution(){
 	if (count == 6)
 		solving6();
 	if (count == 9)
-		solving16();
+		solving9();
 	if (count == 16)
 		solving16();
 }
