@@ -35,8 +35,8 @@
 }
 
  td{
-  width:30px;
-  height:30px;
+  width:35px;
+  height:35px;
   text-align:center;
   font-weight:bold;
   color:red;
@@ -68,6 +68,15 @@ table#A16 tr:nth-child(4n) td{
 table#A16 td:nth-child(4n) {
   border-right:2px solid black; 
 }
+table#A9 td{
+	font-size:25px;
+}
+table#A6 td{
+	font-size:30px;
+}
+table#A4 td{
+	font-size:35px;
+}
 
 td[data-sol="1"]{
 	color:blue;
@@ -75,8 +84,8 @@ td[data-sol="1"]{
 table{
   border-collapse: collapse;
   border:2px solid black;
-  width:480px;
-  height:480px;
+  width:560px;
+  height:560px;
 }
 .button {
   -webkit-transition-duration: 0.4s; /* Safari */
