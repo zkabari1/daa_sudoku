@@ -74,11 +74,12 @@ function solving4(){
 							sol[i][j]=Array.from('1234').filter(notincluded)[0];
 							result[i][j]=Array.from('1234').filter(notincluded)[0];
 							counter++;
-							console.log(result[i][j]);
-							console.log(counter);
+							//console.log(result[i][j]);
+							//console.log(counter);
 						}
 					}
 				}
 			}
 		}
+		return sol;
 }

@@ -28,7 +28,7 @@
 		</h4>
 		
 		<div id="btns" >
-		<button type="button" class="button">Check</button>
+		<button type="button" class="button" onclick="checkgrid()">Check</button>
 		<button type="button" class="button" onclick="creategrid()">Reset</button><br><br>
 		<button type="button" class="button" onclick="solution()">See Solution</button><br><br>
 		<button type="button" class="button" onclick="emptygrid()">Create Your Own Grid</button>
@@ -231,8 +231,8 @@ function creategrid() {
 			}
 		}
 		else if(level === "med"){
-		var easy = [0,0,11,3,0,0,0,0,15,10,8,0,0,4,14,0,
-					0,4,0,0,0,0,2,7,0,0,0,0,0,8,0,0,
+		var easy = [0,0,11,3,0,0,1,0,15,10,8,0,5,4,14,0,
+					6,4,0,0,0,0,2,7,0,0,0,0,0,8,0,0,
 					0,7,0,15,11,9,0,3,0,0,0,0,0,0,0,0,
 					1,0,5,0,0,0,12,0,0,13,9,0,0,0,0,0,
 					0,0,0,10,16,8,0,0,0,0,3,0,0,0,0,0,
@@ -260,7 +260,7 @@ function creategrid() {
 			}
 		}
 		else{
-		var easy = [0,0,16,0,9,4,8,0,0,0,0,0,0,10,0,13,
+		var easy = [0,14,16,0,9,4,8,0,0,11,0,0,0,10,0,13,
 					0,0,2,13,3,15,6,7,0,0,0,0,0,0,0,0,
 					15,0,3,12,5,0,0,0,0,0,0,0,0,0,6,7,
 					5,6,0,8,0,12,0,0,0,0,7,0,0,14,15,0,
@@ -312,14 +312,52 @@ function emptygrid() {
 }
 function solution(){
 	let count=document.getElementById('grid').value;
+	let sol=[];
 	if (count == 4)
-		solving4();
+		sol=solving4();
 	if (count == 6)
 		solving6();
 	if (count == 9)
 		solving9();
 	if (count == 16)
 		solving16();
+	return sol;
+}
+function checkgrid(){
+	let count=document.getElementById('grid').value;
+	console.log("checking grid");
+	let result=[];
+	let body = document.getElementById("right");
+	let tbl = body.getElementsByTagName("table")[0];
+	for(let i=0;i<count;i++){
+		result[i]=[];
+		for(let j=0;j<count;j++){
+			if(tbl.rows[i].cells[j].innerHTML !== "")
+				result[i][j]=tbl.rows[i].cells[j].innerHTML;
+			else
+				result[i][j]="0";
+		}
+	}
+	//console.log(result);
+	let sol=solution();
+	//console.log(sol);
+	
+	compare();
+	function compare(){
+		for(let i=0;i<count;i++){
+			for(let j=0;j<count;j++){
+				console.log(result[i][j],sol[i][j]);
+				if(result[i][j]!== sol[i][j]){
+					alert("Sudoku not solved. Please try again!!");
+					creategrid();
+					return;
+				}
+			}
+		}
+		alert("Congrats!! You solved the sudoku");
+		return;
+	}
+	
 }
 </script>
 
